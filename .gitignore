@@ -1,0 +1,6 @@
+# Backtest outputs (generated locally)
+results/
+__pycache__/
+*.pyc
+.env
+data/cache/
