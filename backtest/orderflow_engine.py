@@ -276,13 +276,13 @@ def _single_fixed(
         if i < next_trade_index:
             continue
 
-        # IMPORTANT:
-        # generate_signal() now returns 5 values because
-        # absorption information was added.
-        signal, score, reasons, _, _ = generate_signal(
+        signal_data = generate_signal(
             df.iloc[i],
             min_score=min_score,
         )
+        signal = signal_data["direction"]
+        score = signal_data["score"]
+        reasons = signal_data["reasons"]
 
         if signal == "FLAT":
             continue
@@ -550,12 +550,13 @@ def _single_structure(
         if i < next_trade_index:
             continue
 
-        # IMPORTANT:
-        # generate_signal() now returns 5 values.
-        signal, score, reasons, _, _ = generate_signal(
+        signal_data = generate_signal(
             df.iloc[i],
             min_score=min_score,
         )
+        signal = signal_data["direction"]
+        score = signal_data["score"]
+        reasons = signal_data["reasons"]
 
         if signal == "FLAT":
             continue
