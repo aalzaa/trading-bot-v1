@@ -273,9 +273,11 @@ def add_orderflow_features(
         .diff()
     )
 
+    # Multi-bar CVD slope: avoids making CVD slope identical to
+    # the current bar's delta.
     df["cvd_slope"] = (
         df["cvd"]
-        .diff()
+        .diff(5)
     )
 
     # ---------------------------------------------------------
