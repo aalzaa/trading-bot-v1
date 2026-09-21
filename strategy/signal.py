@@ -9,7 +9,7 @@ def generate_signal(
 ) -> dict:
     """Generate the V1 order-flow signal.
 
-    This branch raises both Delta and CVD thresholds to +/-2.0.
+    This branch tests Delta +/-2.0 while keeping the CVD filter at +/-1.5.
     Volume remains excluded from scoring.
     """
 
@@ -25,7 +25,7 @@ def generate_signal(
     buy_absorption = bool(row.get("buy_absorption", False))
     sell_absorption = bool(row.get("sell_absorption", False))
 
-    # Stronger Delta confirmation: +/-2.0 z-score.
+    # Delta: stronger confirmation, +/-2.0 z-score.
     if delta_z >= 2.0:
         score += 1.5
         reasons.append("delta_strong_positive")
@@ -33,9 +33,9 @@ def generate_signal(
         score -= 1.5
         reasons.append("delta_strong_negative")
 
-    # Strong multi-bar CVD is a mandatory directional filter: +/-2.0.
-    strong_cvd_long = cvd_slope_z >= 2.0
-    strong_cvd_short = cvd_slope_z <= -2.0
+    # CVD remains at +/-1.5 and is a mandatory directional filter.
+    strong_cvd_long = cvd_slope_z >= 1.5
+    strong_cvd_short = cvd_slope_z <= -1.5
 
     if strong_cvd_long:
         score += 1.5
