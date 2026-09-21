@@ -105,11 +105,9 @@ def _feature_snapshot(row: pd.Series) -> dict:
         return value
 
     cvd = val("cvd_slope_z")
-    delta = val("delta_z")
 
     return {
         "volume_z": val("volume_z"),
-        "delta_z": delta,
         "cvd_slope_z": cvd,
 
         "cvd_condition": (
@@ -117,14 +115,6 @@ def _feature_snapshot(row: pd.Series) -> dict:
             if cvd is not None and float(cvd) >= 0.5
             else "DOWN"
             if cvd is not None and float(cvd) <= -0.5
-            else "NEUTRAL"
-        ),
-
-        "delta_condition": (
-            "BUY"
-            if delta is not None and float(delta) >= 1.0
-            else "SELL"
-            if delta is not None and float(delta) <= -1.0
             else "NEUTRAL"
         ),
 
@@ -136,6 +126,11 @@ def _feature_snapshot(row: pd.Series) -> dict:
         # Absorption telemetry
         "absorption": val("absorption"),
         "absorption_score": val("absorption_score", 0),
+        "cvd_divergence": val("cvd_divergence", "NONE"),
+        "cvd_bullish_divergence": val("cvd_bullish_divergence", False),
+        "cvd_bearish_divergence": val("cvd_bearish_divergence", False),
+        "cvd_long_confirmation": val("cvd_long_confirmation", False),
+        "cvd_short_confirmation": val("cvd_short_confirmation", False),
     }
 
 
@@ -279,10 +274,13 @@ def _single_fixed(
         # IMPORTANT:
         # generate_signal() now returns 5 values because
         # absorption information was added.
-        signal, score, reasons, _, _ = generate_signal(
+        signal_data = generate_signal(
             df.iloc[i],
             min_score=min_score,
         )
+        signal = signal_data["direction"]
+        score = signal_data["score"]
+        reasons = signal_data["reasons"]
 
         if signal == "FLAT":
             continue
