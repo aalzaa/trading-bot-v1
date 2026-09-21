@@ -11,9 +11,8 @@ def generate_signal(
     Generate the V1 order-flow signal.
 
     Existing signal components:
-        - volume
+        - strong multi-bar CVD slope
         - delta
-        - CVD slope
         - aggressive buy/sell ratio
         - big trade
         - VWAP
@@ -96,12 +95,10 @@ def generate_signal(
     )
 
     # =========================================================
-    # VOLUME
+    # VOLUME REMOVED FROM SIGNAL SCORING
     # =========================================================
-
-    if volume_z >= 1.0:
-        score += 0.5
-        reasons.append("volume_high")
+    # Volume remains available as a raw/diagnostic feature, but it
+    # no longer contributes to entry scoring.
 
     # =========================================================
     # DELTA
@@ -118,14 +115,19 @@ def generate_signal(
     # =========================================================
     # CVD
     # =========================================================
+    # Strong CVD is now a mandatory directional entry filter.
+    # The feature is a multi-bar CVD slope z-score.
 
-    if cvd_slope_z >= 0.5:
+    strong_cvd_long = cvd_slope_z >= 1.5
+    strong_cvd_short = cvd_slope_z <= -1.5
+
+    if strong_cvd_long:
         score += 1.5
-        reasons.append("cvd_positive")
+        reasons.append("cvd_strong_positive")
 
-    elif cvd_slope_z <= -0.5:
+    elif strong_cvd_short:
         score -= 1.5
-        reasons.append("cvd_negative")
+        reasons.append("cvd_strong_negative")
 
     # =========================================================
     # AGGRESSIVE BUY / SELL RATIO
@@ -196,11 +198,12 @@ def generate_signal(
     # =========================================================
     # FINAL SIGNAL
     # =========================================================
+    # No trade unless CVD strongly agrees with the direction.
 
-    if score >= min_score:
+    if score >= min_score and strong_cvd_long:
         direction = "LONG"
 
-    elif score <= -min_score:
+    elif score <= -min_score and strong_cvd_short:
         direction = "SHORT"
 
     else:
