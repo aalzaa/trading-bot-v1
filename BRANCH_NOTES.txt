@@ -1,0 +1,15 @@
+BRANCH: cvd-strong-entry
+
+Modifiche rispetto a main:
+- Il volume viene rimosso dallo scoring dell'ingresso: resta disponibile come feature diagnostica.
+- Il CVD slope diventa multi-bar tramite diff(5), invece del diff(1) precedente.
+- Il CVD forte diventa un filtro direzionale obbligatorio.
+- LONG richiede cvd_slope_z >= +1.5.
+- SHORT richiede cvd_slope_z <= -1.5.
+- Il CVD forte aggiunge +/-1.5 allo score.
+- Delta mantiene le soglie +/-1.0.
+- Gli altri componenti dello score restano presenti: aggressive buy/sell ratio, big trade, VWAP e absorption penalty.
+- Il backtest engine è stato corretto per leggere correttamente il dict restituito da generate_signal().
+
+Scopo della branch:
+Testare se eliminare il contributo del volume e richiedere un CVD multi-bar forte migliora la qualità dei segnali.
