@@ -1,0 +1,19 @@
+BRANCH: cvd-delta-strong-entry
+
+Base:
+Deriva da cvd-strong-entry.
+
+Modifiche rispetto alla branch precedente:
+- Delta positivo richiede delta_z >= +2.0 invece di +1.0.
+- Delta negativo richiede delta_z <= -2.0 invece di -1.0.
+- CVD forte LONG richiede cvd_slope_z >= +2.0 invece di +1.5.
+- CVD forte SHORT richiede cvd_slope_z <= -2.0 invece di -1.5.
+- Il CVD resta un filtro direzionale obbligatorio.
+- Il volume continua a NON contribuire allo scoring.
+- Aggressive buy/sell ratio, big trade, VWAP e absorption penalty restano invariati.
+
+Obiettivo sperimentale:
+Ridurre ulteriormente i falsi segnali richiedendo contemporaneamente Delta e CVD più forti.
+
+IMPORTANTE:
+Questa è una variante di ricerca e non è ancora validata. Va confrontata con la baseline tramite backtest sullo stesso periodo e successivamente con un periodo out-of-sample.
