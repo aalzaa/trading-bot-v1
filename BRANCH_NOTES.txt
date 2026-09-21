@@ -1,0 +1,16 @@
+BRANCH: main
+
+Scopo:
+Versione principale/base del Trading Bot V1.
+
+Caratteristiche principali:
+- Bot BTCUSDT USD-M Futures basato su dati storici Binance aggTrades.
+- Costruzione di feature di order flow derivate dai trade: Delta, CVD, volume relativo, aggressive buy/sell ratio, big-trade proxy, VWAP e POC approssimato.
+- La strategia usa un sistema di score per combinare i segnali.
+- Il volume contribuisce allo scoring nella versione main.
+- Delta e CVD usano le soglie della versione base.
+- L'assorbimento è un penalty e non un filtro assoluto.
+- Il backtest supporta diversi RR e una modalità structure/trailing.
+
+Nota:
+Questa è la baseline da cui vengono sviluppate le varianti sperimentali.
