@@ -705,3 +705,109 @@ Ogni nuova idea deve:
 8. non modificare la baseline finché il test non è concluso.
 
 Fine del registro corrente.
+
+
+---
+
+# 23/09/2026
+# DECISIONE FINALE — ADX/REGIME, BIG TRADE + ABSORPTION
+
+## ADX / REGIME — SCARTATI
+
+Dopo il confronto sui 3 mesi, l'esperimento ADX + contesto/regime viene **scartato come componente della strategia corrente**.
+
+### Motivo operativo
+
+L'ADX/regime tende a limitare il comportamento della baseline nei periodi in cui il bot riesce a produrre i maggiori profitti, mentre introduce anche una maggiore frequenza di stop/operazioni non vantaggiose nel confronto complessivo.
+
+In particolare, il beneficio del filtro non è stabile al variare del RR e, rispetto alla baseline, riduce il potenziale profitto nei RR più importanti per la struttura attuale.
+
+### Decisione
+
+**ADX e classificazione di regime vengono abbandonati come filtri della strategia.**
+
+Restano eventualmente disponibili solo come materiale di ricerca/analisi, ma **non fanno parte della versione cvd-delta-strong-entry**.
+
+---
+
+# 23/09/2026
+# BIG TRADE + ABSORPTION — MANTENUTI NELLA VERSIONE CORRENTE
+
+È stato rivalutato l'utilizzo congiunto di:
+
+- Big Trade
+- Absorption
+
+L'obiettivo non è aumentare direttamente il profitto lordo, ma verificare se queste informazioni migliorano la **qualità e la distribuzione del rischio** del sistema.
+
+### Risultato osservato
+
+Il test non mostra un aumento significativo del profitto rispetto alla baseline.
+
+Tuttavia, l'informazione combinata Big Trade + Absorption:
+
+- **riduce sensibilmente il drawdown**;
+- **aumenta il Profit Factor**;
+- migliora il profilo di rischio del sistema;
+- non viene utilizzata per cercare di aumentare artificialmente il numero di trade o il profitto.
+
+Quindi il loro valore viene considerato principalmente come **filtro/controllo di qualità e rischio**, non come motore aggiuntivo di rendimento.
+
+### Decisione
+
+**MANTENUTI nella versione cvd-delta-strong-entry.**
+
+Questa decisione modifica la valutazione precedente in cui Big Trade e Absorption erano considerati separatamente come non sufficienti a giustificare un filtro obbligatorio.
+
+La configurazione corrente viene quindi considerata:
+
+**CVD + Delta Strong Entry + Big Trade + Absorption**
+
+con l'obiettivo di mantenere l'edge della baseline migliorando il profilo di drawdown/PF.
+
+> Nota metodologica: i valori numerici specifici del miglioramento di DD e PF devono essere aggiunti al registro quando viene salvato il relativo CSV/JSON definitivo del test. In questa voce viene registrata la decisione e il risultato qualitativo comunicato nel test.
+
+---
+
+# STATO AGGIORNATO AL 23/09/2026
+
+**VERSIONE CORRENTE: cvd-delta-strong-entry**
+
+Componenti mantenute:
+
+1. Delta
+2. CVD
+3. CVD multi-bar slope
+4. Strong-entry filtering
+5. Volume Profile / POC
+6. Big Trade
+7. Absorption
+8. logging completo
+9. MFE/MAE
+10. analisi per RR
+
+Componenti definitivamente escluse dalla strategia corrente:
+
+1. EMA50
+2. ADX / regime filter
+3. volume scoring
+4. CVD-only
+5. CVD divergence-only
+6. altre varianti precedenti non confermate
+
+La baseline rimane congelata come riferimento. Big Trade e Absorption sono ora considerati parte della configurazione corrente perché il loro beneficio principale è sul **drawdown e sul Profit Factor**, non sull'aumento del profitto assoluto.
+
+---
+
+# REGOLA AGGIORNATA PER I PROSSIMI TEST
+
+Il prossimo test deve partire dalla configurazione corrente:
+
+**cvd-delta-strong-entry = CVD + Delta + Big Trade + Absorption**
+
+ADX/regime ed EMA non devono essere reintrodotti come filtri, salvo un nuovo esperimento esplicitamente separato.
+
+
+---
+
+Fine del registro corrente.
