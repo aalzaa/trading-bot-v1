@@ -808,6 +808,36 @@ Il prossimo test deve partire dalla configurazione corrente:
 ADX/regime ed EMA non devono essere reintrodotti come filtri, salvo un nuovo esperimento esplicitamente separato.
 
 
+
+---
+
+# 23/09/2026
+# TEST FILTRO FESTIVITÀ
+
+## Obiettivo
+
+È stato testato un filtro per escludere le operazioni durante le festività, con l'ipotesi che la minore attività/liquidità potesse peggiorare la qualità dei segnali.
+
+### Risultato
+
+Il filtro festività è stato confrontato con la configurazione di riferimento.
+
+L'esclusione delle festività ha prodotto un peggioramento dei principali indicatori di qualità del sistema:
+
+- **Win Rate in diminuzione**
+- **Profit Factor in diminuzione**
+
+Il filtro quindi non ha fornito un miglioramento sufficientemente robusto da giustificarne l'inserimento nella strategia.
+
+### Decisione
+
+**SCARTATO / RIMOSSO.**
+
+Il filtro festività **non fa parte della versione corrente `cvd-delta-strong-entry`**.
+
+La decisione viene mantenuta nel registro storico per evitare di ripetere in futuro lo stesso esperimento come se fosse una nuova idea.
+
+
 ---
 
 Fine del registro corrente.
