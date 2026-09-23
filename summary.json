@@ -1,0 +1,83 @@
+{
+  "0.5": {
+    "initial_equity": 10000.0,
+    "final_equity": 9174.018538036116,
+    "return_pct": -8.259814619638838,
+    "trades": 576,
+    "win_rate_pct": 64.75694444444444,
+    "expectancy": -1.4339955936872633,
+    "profit_factor": 0.9145376161370873,
+    "max_drawdown_pct": 11.381357027251576,
+    "rr": 0.5
+  },
+  "0.75": {
+    "initial_equity": 10000.0,
+    "final_equity": 10111.140599250431,
+    "return_pct": 1.1114059925043218,
+    "trades": 555,
+    "win_rate_pct": 57.47747747747748,
+    "expectancy": 0.20025333198275852,
+    "profit_factor": 1.009283263046471,
+    "max_drawdown_pct": 6.960494823625095,
+    "rr": 0.75
+  },
+  "1.0": {
+    "initial_equity": 10000.0,
+    "final_equity": 10653.202937781585,
+    "return_pct": 6.532029377815851,
+    "trades": 538,
+    "win_rate_pct": 51.301115241635685,
+    "expectancy": 1.214131854612627,
+    "profit_factor": 1.0481821206347357,
+    "max_drawdown_pct": 6.9772047268079955,
+    "rr": 1.0
+  },
+  "1.25": {
+    "initial_equity": 10000.0,
+    "final_equity": 11977.040639708051,
+    "return_pct": 19.77040639708052,
+    "trades": 527,
+    "win_rate_pct": 47.6280834914611,
+    "expectancy": 3.7515002651007148,
+    "profit_factor": 1.1309810475052813,
+    "max_drawdown_pct": 5.147056257340006,
+    "rr": 1.25
+  },
+  "1.5": {
+    "initial_equity": 10000.0,
+    "final_equity": 12463.107543494276,
+    "return_pct": 24.631075434942762,
+    "trades": 509,
+    "win_rate_pct": 43.614931237721024,
+    "expectancy": 4.8391110874150645,
+    "profit_factor": 1.1538546963751135,
+    "max_drawdown_pct": 6.361130705544691,
+    "rr": 1.5
+  },
+  "2.0": {
+    "initial_equity": 10000.0,
+    "final_equity": 12367.44647354777,
+    "return_pct": 23.674464735477695,
+    "trades": 480,
+    "win_rate_pct": 36.45833333333333,
+    "expectancy": 4.932180153224534,
+    "profit_factor": 1.1409367647973105,
+    "max_drawdown_pct": 8.305544028431244,
+    "rr": 2.0
+  },
+  "structure_trailing": {
+    "initial_equity": 10000.0,
+    "final_equity": 7285.9419263798,
+    "return_pct": -27.140580736202004,
+    "trades": 558,
+    "win_rate_pct": 39.42652329749104,
+    "expectancy": -4.863903357742277,
+    "profit_factor": 0.6876542906740254,
+    "max_drawdown_pct": 27.443545765591114,
+    "rr": "dynamic_structure",
+    "partial_size_pct": 50.0,
+    "target_min_r": 0.5,
+    "trailing_activation_r": 1.0,
+    "structure_lookback_bars": 48
+  }
+}
