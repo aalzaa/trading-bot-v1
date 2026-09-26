@@ -17,3 +17,11 @@ Ridurre ulteriormente i falsi segnali richiedendo contemporaneamente Delta e CVD
 
 IMPORTANTE:
 Questa è una variante di ricerca e non è ancora validata. Va confrontata con la baseline tramite backtest sullo stesso periodo e successivamente con un periodo out-of-sample.
+
+
+--- SESSION FILTER EXPERIMENT ---
+- New entries allowed only during Asia + London: 00:00-12:59 UTC.
+- Existing positions are not force-closed when the session window ends.
+- Strategy logic and all features remain unchanged.
+- Filter applies to fixed-RR and structure/trailing backtests.
+- Official baseline remains cvd-delta-strong-entry until comparison.
