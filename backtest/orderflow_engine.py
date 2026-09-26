@@ -253,6 +253,11 @@ def _base_trade(
     return trade
 
 
+def _is_asia_london_session(timestamp) -> bool:
+    """Return True for Asia + London session bars (00:00-12:59 UTC)."""
+    return timestamp.hour < 13
+
+
 def _single_fixed(
     df,
     initial_equity,
@@ -274,6 +279,10 @@ def _single_fixed(
     for i in range(len(df) - 1):
 
         if i < next_trade_index:
+            continue
+
+        # Asia + London experiment: allow new entries only from 00:00 to 12:59 UTC.
+        if not _is_asia_london_session(df.index[i]):
             continue
 
         signal_data = generate_signal(
@@ -548,6 +557,10 @@ def _single_structure(
     for i in range(len(df) - 1):
 
         if i < next_trade_index:
+            continue
+
+        # Asia + London experiment: allow new entries only from 00:00 to 12:59 UTC.
+        if not _is_asia_london_session(df.index[i]):
             continue
 
         signal_data = generate_signal(
