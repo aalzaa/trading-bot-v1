@@ -921,4 +921,102 @@ La branch `rr05-entry-be2` viene mantenuta esclusivamente come test storico scar
 
 ---
 
+---
+
+# 26/09/2026
+# TEST SESSION FILTER — ASIA + LONDON
+
+## Obiettivo
+
+È stato testato un filtro temporale sulla configurazione corrente **CVD + Delta + Big Trade + Absorption**, senza modificare la logica dei segnali o delle feature.
+
+Il filtro consente nuove entrate esclusivamente nella finestra:
+
+- **Asia + London: 00:00–12:59 UTC**
+- le posizioni già aperte **non vengono chiuse forzatamente** al termine della finestra;
+- la logica della strategia e la gestione del backtest restano invariate;
+- il filtro è applicato ai modelli fixed-RR e structure/trailing.
+
+Branch di ricerca: **`asia-london-trading`**
+
+## Risultati
+
+| RR | Trade | Return | Profit Factor | Win Rate | Max DD |
+|---|---:|---:|---:|---:|---:|
+| 0.5 | 405 | **-8.16%** | 0.883 | 63.95% | 9.74% |
+| 0.75 | 387 | **+0.39%** | 1.005 | 57.36% | 5.74% |
+| 1.0 | 368 | **+11.12%** | 1.123 | 52.99% | **3.97%** |
+| 1.25 | 357 | **+20.84%** | 1.205 | 49.30% | 5.17% |
+| 1.5 | 342 | **+29.47%** | 1.277 | 46.20% | 4.21% |
+| 2.0 | 324 | **+26.03%** | 1.234 | 38.27% | 6.78% |
+| Structure/trailing | 383 | **-15.15%** | 0.770 | 43.60% | 16.67% |
+
+### Risultati per sessione — RR1.5
+
+**Asia**
+- 222 trade
+- Profit Factor: **1.259**
+- PnL: **+$1,806**
+
+**London**
+- 119 trade
+- Profit Factor: **1.333**
+- PnL: **+$1,204**
+
+### Risultati per sessione — RR2.0
+
+**Asia**
+- 211 trade
+- Profit Factor: **1.167**
+- PnL: **+$1,242**
+
+**London**
+- 112 trade
+- Profit Factor: **1.389**
+- PnL: **+$1,420**
+
+## Decisione
+
+Il filtro **Asia + London viene adottato come nuova configurazione ufficiale di riferimento del progetto**.
+
+Da questo momento la versione di riferimento non è più la baseline temporale completa `cvd-delta-strong-entry`, ma:
+
+**`asia-london` = CVD + Delta + Big Trade + Absorption + session filter Asia/London (00:00–12:59 UTC)**
+
+La configurazione precedente `cvd-delta-strong-entry` resta nel registro come baseline storica e punto di confronto, ma **non è più la versione ufficiale di riferimento**.
+
+## Regola per i prossimi test
+
+Ogni nuovo esperimento deve partire da **`asia-london`**, salvo esplicita decisione di creare una nuova baseline.
+
+La configurazione ufficiale mantiene:
+1. Delta
+2. CVD
+3. CVD multi-bar slope
+4. Strong-entry filtering
+5. Volume Profile / POC
+6. Big Trade
+7. Absorption
+8. session filter Asia + London
+9. logging completo
+10. MFE/MAE
+11. analisi per RR
+
+EMA50, ADX/regime e filtro festività restano esclusi dalla strategia ufficiale.
+
+---
+
+# STATO UFFICIALE DEL PROGETTO — 26/09/2026
+
+**VERSIONE DI RIFERIMENTO UFFICIALE: `asia-london`**
+
+Base strategica:
+**CVD + Delta + Big Trade + Absorption**
+
+Filtro operativo:
+**Asia + London — 00:00–12:59 UTC**
+
+Tutti i futuri test devono essere confrontati con questa configurazione, mantenendo invariati dataset, periodo e metodologia di backtest quando il test è destinato a misurare una singola modifica.
+
+
 Fine del registro corrente.
