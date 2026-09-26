@@ -384,8 +384,6 @@ ADX + contesto/regime.
 
 ### Risultati 3 mesi
 
-Confronto tra baseline `cvd-delta-strong-entry` e ADX + contesto:
-
 | RR | Baseline Return | Baseline PF | ADX Return | ADX PF |
 |---|---:|---:|---:|---:|
 | 0,5R | -8,26% | 0,915 | +3,38% | 1,030 |
@@ -767,6 +765,7 @@ con l'obiettivo di mantenere l'edge della baseline migliorando il profilo di dra
 
 > Nota metodologica: i valori numerici specifici del miglioramento di DD e PF devono essere aggiunti al registro quando viene salvato il relativo CSV/JSON definitivo del test. In questa voce viene registrata la decisione e il risultato qualitativo comunicato nel test.
 
+
 ---
 
 # STATO AGGIORNATO AL 23/09/2026
@@ -808,7 +807,6 @@ Il prossimo test deve partire dalla configurazione corrente:
 ADX/regime ed EMA non devono essere reintrodotti come filtri, salvo un nuovo esperimento esplicitamente separato.
 
 
-
 ---
 
 # 23/09/2026
@@ -837,6 +835,89 @@ Il filtro festività **non fa parte della versione corrente `cvd-delta-strong-en
 
 La decisione viene mantenuta nel registro storico per evitare di ripetere in futuro lo stesso esperimento come se fosse una nuova idea.
 
+
+---
+
+# 26/09/2026
+# TEST RR0.5 ENTRY + BE0.5 + TP2 — BRANCH rr05-entry-be2
+
+## Obiettivo
+
+Testare una gestione alternativa delle uscite mantenendo **esattamente lo stesso universo di ingresso della configurazione RR0.5**.
+
+La domanda era verificare se, aprendo gli stessi identici trade della RR0.5, fosse possibile:
+
+1. non chiudere il trade a +0,5R;
+2. al raggiungimento di +0,5R spostare lo stop a **Break Even (BE)**;
+3. lasciare correre il trade fino a un massimo di **+2R**;
+4. chiudere a **+2R** se raggiunto.
+
+## Configurazione
+
+Branch: **`rr05-entry-be2`**
+
+Base: **`cvd-delta-strong-entry`**
+
+Caratteristiche:
+
+- stesso segnale di ingresso della RR0.5;
+- stessi timestamp di ingresso;
+- stessa direzione;
+- stesso score/reasons;
+- stesso SL iniziale;
+- nessuna modifica a CVD, Delta, Big Trade o Absorption;
+- a +0,5R → SL spostato a BE;
+- target massimo +2R;
+- se BE e TP vengono toccati nella stessa candela OHLC, viene applicata la gestione conservativa dello stop.
+
+## Controllo dell'universo di ingresso
+
+Il confronto ha verificato:
+
+- RR0.5 reference: **750 trade**
+- RR0.5-entry-BE2: **750 trade**
+- timestamp di ingresso identici: **750/750**
+
+Quindi il test è un confronto effettivamente isolato sulla **gestione dell'uscita**, senza differenze nell'universo degli ingressi.
+
+## Risultati
+
+### RR0.5 originale
+
+- Trade: **750**
+- Win: **485**
+- Loss: **265**
+- BE: **0**
+- PnL totale: **-1107,14**
+- Return su capitale $10.000: circa **-11,07%**
+
+### rr05-entry-be2
+
+- Trade: **750**
+- Win a +2R: **42**
+- Loss: **245**
+- BE: **463**
+- PnL totale: **-5552,13**
+- Return su capitale $10.000: circa **-55,52%**
+
+In termini approssimativi di R:
+
+- RR0.5 originale: 485 × +0,5R − 265 × 1R = **-22,5R**
+- BE2: 42 × +2R − 245 × 1R = **-161R**
+
+## Decisione
+
+**SCARTATO.**
+
+La gestione **BE a +0,5R + TP massimo a +2R** peggiora drasticamente il risultato rispetto alla gestione RR0.5 originale, pur utilizzando gli stessi identici 750 ingressi.
+
+Questo test viene quindi classificato come **esperimento di exit management fallito** e non modifica la baseline.
+
+### Stato ufficiale
+
+**La versione ufficiale rimane: `cvd-delta-strong-entry`.**
+
+La branch `rr05-entry-be2` viene mantenuta esclusivamente come test storico scartato.
 
 ---
 
