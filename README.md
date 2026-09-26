@@ -81,6 +81,25 @@ Backtest output is written to `results/`.
 
 Do not optimize thresholds on the same sample used to discover them.
 
+## Official reference configuration (26/09/2026)
+
+**`asia-london`** is the official reference configuration for current research.
+
+Base strategy:
+- CVD
+- Delta
+- CVD multi-bar slope
+- Strong-entry filtering
+- Volume Profile / POC
+- Big Trade
+- Absorption
+
+Session filter:
+- New entries only during **Asia + London: 00:00–12:59 UTC**
+- Existing positions are not force-closed when the session window ends.
+
+The previous `cvd-delta-strong-entry` configuration remains as historical baseline material and comparison reference, but is no longer the official project baseline.
+
 ## Current V1 scope
 
 - Binance USD-M Futures BTCUSDT aggTrades.
