@@ -253,6 +253,11 @@ def _base_trade(
     return trade
 
 
+def _is_asia_session(timestamp) -> bool:
+    """Return True for Asia session bars (00:00-07:59 UTC)."""
+    return timestamp.hour < 8
+
+
 def _single_fixed(
     df,
     initial_equity,
@@ -274,6 +279,10 @@ def _single_fixed(
     for i in range(len(df) - 1):
 
         if i < next_trade_index:
+            continue
+
+        # Asia-only experiment: allow new entries only from 00:00 to 07:59 UTC.
+        if not _is_asia_session(df.index[i]):
             continue
 
         signal_data = generate_signal(
@@ -548,6 +557,10 @@ def _single_structure(
     for i in range(len(df) - 1):
 
         if i < next_trade_index:
+            continue
+
+        # Asia-only experiment: allow new entries only from 00:00 to 07:59 UTC.
+        if not _is_asia_session(df.index[i]):
             continue
 
         signal_data = generate_signal(
